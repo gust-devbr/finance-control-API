@@ -1,8 +1,13 @@
 import "dotenv/config"
 import app from "./app.js"
 
-const PORT = process.env.PORT || 3000
+const PORT = Number(process.env.PORT) || 3000
 
-app.listen(PORT, () => {
-    console.log(`Rodando em http://localhost:${PORT} ou http://192.168.0.107:${PORT}`)
+// HEALTH CHECK
+app.get("/", (_, res) => {
+    res.json({ status: "online" })
+})
+
+app.listen(PORT, "0.0.0.0", () => {
+    console.log(`Rodando na porta ${PORT}`)
 })
